@@ -1,0 +1,21 @@
+font-family = FiraCode Nerd Font
+font-size = 13
+
+theme = catppuccin-mocha
+
+background-opacity = 0.9
+background-blur-radius = 20
+
+cursor-style = block
+cursor-style-blink = true
+
+window-padding-x = 10
+window-padding-y = 10
+window-save-state = always
+
+macos-option-as-alt = true
+
+# new tab / split at cwd
+keybind = super+shift+c=new_tab
+keybind = super+shift+d=new_split:right
+keybind = super+shift+s=new_split:down
