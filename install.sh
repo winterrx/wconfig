@@ -56,7 +56,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 missing_formulae=()
-for f in starship zoxide zsh-autosuggestions zsh-syntax-highlighting; do
+for f in starship zoxide zsh-autosuggestions zsh-syntax-highlighting fzf; do
   brew list --formula "$f" >/dev/null 2>&1 || missing_formulae+=("$f")
 done
 if (( ${#missing_formulae[@]} )); then
@@ -68,11 +68,20 @@ if ! brew list --cask font-fira-code-nerd-font >/dev/null 2>&1; then
   brew install --cask font-fira-code-nerd-font
 fi
 
+# Generate ~/.fzf.zsh (keybindings + completion) without touching .zshrc —
+# wconfig already sources it from the tracked .zshrc.
+if [[ ! -f "$HOME/.fzf.zsh" ]]; then
+  "$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc >/dev/null
+fi
+
 # ---- dotfiles ----
 install_file "zshrc"         ".zshrc"                  "$HOME/.zshrc"
 install_file "zprofile"      ".zprofile"               "$HOME/.zprofile"
 install_file "starship"      ".config/starship.toml"   "$HOME/.config/starship.toml"
 install_file "ghostty"       ".config/ghostty/config"  "$HOME/.config/ghostty/config"
+
+# ---- macOS defaults ----
+bash "$config_root/bin/macos-defaults.sh"
 
 echo
 echo "done. restart Ghostty (⌘Q + reopen) to pick up the font + theme."
