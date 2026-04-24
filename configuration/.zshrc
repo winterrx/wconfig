@@ -72,6 +72,25 @@ x3000() {
   [[ -n "$pid" ]] && kill -9 $pid && echo "killed $pid on :3000" || echo "nothing on :3000"
 }
 
+# ---- dmginstall: mount a .dmg, copy the .app to /Applications, eject ----
+dmginstall() {
+  local dmg="$1"
+  [[ -f "$dmg" ]] || { echo "usage: dmginstall <file.dmg>"; return 1; }
+  local mount_point
+  mount_point=$(hdiutil attach -nobrowse -noautoopen "$dmg" | grep -Eo '/Volumes/[^ ]+.*' | tail -1)
+  [[ -d "$mount_point" ]] || { echo "failed to mount $dmg"; return 1; }
+  local app
+  app=$(find "$mount_point" -maxdepth 2 -name "*.app" -print -quit)
+  if [[ -z "$app" ]]; then
+    echo "no .app found in $mount_point — ejecting"
+    hdiutil detach "$mount_point" -quiet
+    return 1
+  fi
+  echo "installing $(basename "$app")..."
+  ditto "$app" "/Applications/$(basename "$app")" && echo "installed to /Applications/$(basename "$app")"
+  hdiutil detach "$mount_point" -quiet && echo "ejected $mount_point"
+}
+
 list-aliases() {
   cat <<'EOF'
 nrd      npm run dev
@@ -91,6 +110,7 @@ x3000    kill process on port 3000
 rmrf     rm -rf
 home     set/get terminal start directory
 la       list-aliases
+dmginstall <file.dmg>   mount .dmg, copy .app to /Applications, eject
 EOF
 }
 alias la='list-aliases'
@@ -100,3 +120,5 @@ eval "$(zoxide init zsh)"
 
 # ---- starship prompt ----
 eval "$(starship init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
