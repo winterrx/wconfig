@@ -66,6 +66,7 @@ alias cdxy='codex --yolo'
 alias oc='opencode'
 alias rmrf='rm -rf'
 alias cpwd='pwd | tee /dev/tty | pbcopy'
+alias sho='cat ~/.ssh/config'
 
 x3000() {
   local pid
@@ -110,6 +111,7 @@ oc       opencode
 x3000    kill process on port 3000
 rmrf     rm -rf
 cpwd     print pwd and copy to clipboard
+sho      print ~/.ssh/config
 home     set/get terminal start directory
 la       list-aliases
 dmginstall <file.dmg>   mount .dmg, copy .app to /Applications, eject
