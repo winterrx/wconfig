@@ -45,6 +45,7 @@ function oc { opencode }
 function home { & "$env:USERPROFILE\bin\home.ps1" @args }
 function x3000 { netstat -ano | findstr :3000 | ForEach-Object { if ($_ -match 'LISTENING.*?(\d+)$') { taskkill /PID $matches[1] /F } } }
 function rmrf { cmd /c "rmdir /s /q $args" 2>$null; if (Test-Path $args) { rm $args -r -fo } }
+function cpwd { $p = $PWD.Path; Write-Output $p; $p | Set-Clipboard }
 function list-aliases {
     $aliases = @{
         "nrd" = "npm run dev"
@@ -59,6 +60,7 @@ function list-aliases {
 	"cc" = "claude"
 	"x3000" = "kill process on port 3000"
 	"rmrf" = "force delete (rm -rf)"
+	"cpwd" = "print pwd and copy to clipboard"
 	"home" = "set/get terminal start directory"
     }
     $aliases.GetEnumerator() | Sort-Object Name | Format-Table Name,Value -AutoSize

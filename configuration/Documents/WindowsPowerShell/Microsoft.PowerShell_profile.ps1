@@ -47,6 +47,8 @@ function copy {
 
 function pasta { Get-Clipboard }
 
+function cpwd { $p = $PWD.Path; Write-Output $p; $p | Set-Clipboard }
+
 function pastas {
     $last = Get-Clipboard
     Write-Output $last
