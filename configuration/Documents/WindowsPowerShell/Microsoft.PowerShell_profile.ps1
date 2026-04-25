@@ -216,4 +216,5 @@ function uuid { [guid]::NewGuid().ToString() }
 
 # CLI tool aliases
 function oc { opencode @args }
-function cc { claude @args }
+function cc { claude --dangerously-skip-permissions @args }
+function cod { codex --yolo @args }

@@ -59,10 +59,8 @@ alias brs='bun run start'
 alias brb='bun run build'
 alias pushdb='npx prisma db push'
 alias newdb='npx prisma generate db'
-alias cc='claude'
-alias ccd='claude --dangerously-skip-permissions'
-alias cdx='codex'
-alias cdxy='codex --yolo'
+alias cc='claude --dangerously-skip-permissions'
+alias cod='codex --yolo'
 alias oc='opencode'
 alias rmrf='rm -rf'
 alias cpwd='pwd | tee /dev/tty | pbcopy'
@@ -103,10 +101,8 @@ brs      bun run start
 brb      bun run build
 pushdb   npx prisma db push
 newdb    npx prisma generate db
-cc       claude
-ccd      claude --dangerously-skip-permissions
-cdx      codex
-cdxy     codex --yolo
+cc       claude --dangerously-skip-permissions
+cod      codex --yolo
 oc       opencode
 x3000    kill process on port 3000
 rmrf     rm -rf

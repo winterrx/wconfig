@@ -40,7 +40,8 @@ function brs { bun run start }
 function brb { bun run build }
 function pushdb { npx prisma db push }
 function newdb { npx prisma generate db }
-function cc { claude }
+function cc { claude --dangerously-skip-permissions @args }
+function cod { codex --yolo @args }
 function oc { opencode }
 function home { & "$env:USERPROFILE\bin\home.ps1" @args }
 function x3000 { netstat -ano | findstr :3000 | ForEach-Object { if ($_ -match 'LISTENING.*?(\d+)$') { taskkill /PID $matches[1] /F } } }
@@ -57,7 +58,8 @@ function list-aliases {
         "pushdb" = "npx prisma db push"
         "newdb" = "npx prisma generate db"
 	"la" = "list-aliases"
-	"cc" = "claude"
+	"cc" = "claude --dangerously-skip-permissions"
+	"cod" = "codex --yolo"
 	"x3000" = "kill process on port 3000"
 	"rmrf" = "force delete (rm -rf)"
 	"cpwd" = "print pwd and copy to clipboard"
@@ -79,6 +81,6 @@ Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Set-PSReadlineKeyHandler -Key "Ctrl+Shift+c" -ScriptBlock {
     # Get current directory
     $currentDir = $PWD.Path
-    # Open new tab in Windows Terminal at current directory and run claude
-    wt -w 0 nt -d "$currentDir" pwsh -NoExit -Command "claude"
+    # Open new tab in Windows Terminal at current directory and run Claude dangerously
+    wt -w 0 nt -d "$currentDir" pwsh -NoExit -Command "claude --dangerously-skip-permissions"
 }
