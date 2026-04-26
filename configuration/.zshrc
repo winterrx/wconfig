@@ -91,6 +91,27 @@ dmginstall() {
   hdiutil detach "$mount_point" -quiet && echo "ejected $mount_point"
 }
 
+# ---- nsd: toggle macOS natural scroll direction ----
+# `nsd` toggles, `nsd on|off|status` for explicit control.
+# on  = natural (mac-style, content follows fingers)
+# off = reverse (windows-style)
+nsd() {
+  local key=com.apple.swipescrolldirection
+  local cur=$(defaults read -g $key 2>/dev/null || echo 1)
+  local target
+  case "${1:-toggle}" in
+    on)     target=true ;;
+    off)    target=false ;;
+    toggle) [[ "$cur" = "1" ]] && target=false || target=true ;;
+    status) [[ "$cur" = "1" ]] && echo "natural scroll: on" || echo "natural scroll: off"; return ;;
+    *)      echo "usage: nsd [toggle|on|off|status]"; return 2 ;;
+  esac
+  defaults write -g $key -bool "$target"
+  killall cfprefsd >/dev/null 2>&1
+  killall Dock >/dev/null 2>&1
+  [[ "$target" = "true" ]] && echo "natural scroll: on" || echo "natural scroll: off"
+}
+
 list-aliases() {
   cat <<'EOF'
 nrd      npm run dev
@@ -111,6 +132,7 @@ sho      print ~/.ssh/config
 home     set/get terminal start directory
 la       list-aliases
 dmginstall <file.dmg>   mount .dmg, copy .app to /Applications, eject
+nsd [on|off|status]     toggle macOS natural scroll direction
 EOF
 }
 alias la='list-aliases'
