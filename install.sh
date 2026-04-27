@@ -79,6 +79,8 @@ install_file "zshrc"         ".zshrc"                  "$HOME/.zshrc"
 install_file "zprofile"      ".zprofile"               "$HOME/.zprofile"
 install_file "starship"      ".config/starship.toml"   "$HOME/.config/starship.toml"
 install_file "ghostty"       ".config/ghostty/config"  "$HOME/.config/ghostty/config"
+install_file "zed settings"  ".config/zed/settings.json" "$HOME/.config/zed/settings.json"
+install_file "zed keymap"    ".config/zed/keymap.json"   "$HOME/.config/zed/keymap.json"
 
 # ---- macOS defaults ----
 bash "$config_root/bin/macos-defaults.sh"
