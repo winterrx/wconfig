@@ -62,6 +62,7 @@ alias newdb='npx prisma generate db'
 alias cc='claude --dangerously-skip-permissions'
 alias cod='codex --yolo'
 alias oc='opencode'
+alias ab='agent-browser'
 alias rmrf='rm -rf'
 alias cpwd='pwd | tee /dev/tty | pbcopy'
 alias sho='cat ~/.ssh/config'
@@ -125,6 +126,7 @@ newdb    npx prisma generate db
 cc       claude --dangerously-skip-permissions
 cod      codex --yolo
 oc       opencode
+ab       agent-browser
 x3000    kill process on port 3000
 rmrf     rm -rf
 cpwd     print pwd and copy to clipboard
